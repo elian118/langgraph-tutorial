@@ -90,7 +90,7 @@ def get_relevant_documents_paths(data_path, query, k):
             seen_sources.add(source_path)
 
             unique_docs.append(Document(
-                page_content=doc.page_content,
+                page_content=doc.page_content, # 검색에서 걸린 '텍스트 조각(Chunk) 1000개
                 metadata=doc.metadata
             ))
 
