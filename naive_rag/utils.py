@@ -78,12 +78,20 @@ def get_relevant_documents_paths(data_path, query, k):
 
     # 4. 파일 단위로 중복 제거하여 Document 객체 생성
     # 검색된 결과는 '문서 조각(Chunk)'이므로, 동일한 파일이 여러 번 나올 수 있다.
+    # 4. 파일 단위로 중복 제거하여 Document 객체 생성
     seen_sources = set()
     unique_docs = []
 
     for doc in relevant_docs:
-        unique_docs.append(Document(
-            metadata=doc.metadata
-        ))
+        source_path = doc.metadata.get('source')
+
+        # 중복 체크 로직 추가
+        if source_path not in seen_sources:
+            seen_sources.add(source_path)
+
+            unique_docs.append(Document(
+                page_content=doc.page_content,
+                metadata=doc.metadata
+            ))
 
     return unique_docs
