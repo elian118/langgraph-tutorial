@@ -1,20 +1,28 @@
 import os
 
 from dotenv import load_dotenv
-from langchain_anthropic import ChatAnthropic
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 load_dotenv()
 
-api_key = os.getenv("ANTHROPIC_API_KEY") # 사용하기 전에 5달러 결재라도 할 것... ㅡ.,ㅡ
+# api_key = os.getenv("ANTHROPIC_API_KEY") # 사용하기 전에 5달러 결재라도 할 것... ㅡ.,ㅡ
+api_key = os.getenv("GOOGLE_API_KEY")
 
 # Step 1: tools & model 정의
 from langchain.tools import tool
 
-model = ChatAnthropic(
-    model="claude-sonnet-4-5-20250929",
-    anthropic_api_key=api_key,
+# model = ChatAnthropic(
+#     model="claude-sonnet-4-5-20250929",
+#     api_key=api_key,
+#     temperature=0
+# )
+
+model = ChatGoogleGenerativeAI(
+    model="gemini-2.5-flash",
+    api_key=api_key,
     temperature=0
 )
+
 
 
 # tools 정의
